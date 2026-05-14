@@ -1,0 +1,1 @@
+{"type":"web_service","name":"wesave","ownerId":"tea-d82no5rtqb8s73ejvmk0","repo":"https://github.com/Akashi2017/WeSave","branch":"main","autoDeploy":"yes","serviceDetails":{"env":"node","plan":"free","envSpecificDetails":{"buildCommand":"npm install","startCommand":"node server.js"},"healthCheckPath":"/api/health"}}
