@@ -1,13 +1,8 @@
 {
   "name": "wesave",
   "version": "1.0.0",
-  "description": "微信公众号文章下载工具 - 粘贴链接即可保存为 Markdown / HTML",
-  "main": "server.js",
+  "description": "微信公众号文章下载工具",
   "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.21.0",
-    "cors": "^2.8.5"
+    "vercel-build": "echo done"
   }
 }
