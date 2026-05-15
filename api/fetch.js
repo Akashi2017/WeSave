@@ -1,7 +1,7 @@
 // Vercel Serverless Function - 公众号文章下载 API
 // 部署到 Vercel 时，此文件处理 /api/fetch 路径
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // 设置 CORS 头
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
