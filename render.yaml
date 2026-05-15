@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: wesave
-    env: node
-    buildCommand: npm install --production
-    startCommand: node server.js
-    healthCheckPath: /api/health

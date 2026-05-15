@@ -1,1 +1,0 @@
-{"name":"wesave","region":"was","instance_type":"free","git_source":{"repository":"https://github.com/Akashi2017/WeSave","branch":"main"},"routes":[{"path":"/","port":8080}]}

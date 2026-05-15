@@ -1,8 +1,0 @@
-{
-  "name": "wesave",
-  "version": "1.0.0",
-  "description": "微信公众号文章下载工具",
-  "scripts": {
-    "vercel-build": "echo done"
-  }
-}
