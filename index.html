@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>公众号文章下�?/title>
+<title>公众号文章下载</title>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:#f5f5f5;color:#1a1a1a;min-height:100vh;display:flex;flex-direction:column}
@@ -82,8 +82,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 </head>
 <body>
 <div class="header">
-  <h1>公众号文章下�?/h1>
-  <p>粘贴文章链接即可保存�?Markdown / HTML</p>
+  <h1>公众号文章下载</h1>
+  <p>粘贴文章链接即可保存为 Markdown / HTML</p>
 </div>
 <div class="container">
   <div class="input-card">
@@ -93,17 +93,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
       <button id="fetchBtn" onclick="fetchArticle()">解析下载</button>
     </div>
     <div class="hint" id="modeHint">
-      在微信中打开文章 �?右上�?<code>...</code> �?复制链接 �?粘贴到上�?    </div>
+      在微信中打开文章 → 右上角 <code>...</code> → 复制链接 → 粘贴到上方
+    </div>
     <div style="margin-top:8px;text-align:right">
-      <span style="font-size:12px;color:#999;cursor:pointer" onclick="toggleMode()" id="modeToggle">解析失败？试试粘�?HTML 源码</span>
+      <span style="font-size:12px;color:#999;cursor:pointer" onclick="toggleMode()" id="modeToggle">解析失败？试试粘贴 HTML 源码</span>
     </div>
   </div>
 
   <!-- Manual HTML paste (hidden by default) -->
   <div class="input-card" id="manualCard" style="display:none;margin-top:12px">
-    <label>或直接粘贴文�?HTML 源码</label>
-    <textarea id="htmlInput" rows="6" style="width:100%;padding:10px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:13px;outline:none;resize:vertical;font-family:monospace;margin-bottom:8px;background:#fafafa" placeholder="在浏览器中打开文章 �?右键"查看网页源代�? �?全选复�?�?粘贴到此�?></textarea>
-    <button class="btn-secondary" onclick="parseHtml()">�?HTML 解析</button>
+    <label>或直接粘贴文章 HTML 源码</label>
+    <textarea id="htmlInput" rows="6" style="width:100%;padding:10px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:13px;outline:none;resize:vertical;font-family:monospace;margin-bottom:8px;background:#fafafa" placeholder="在浏览器中打开文章 → 右键"查看网页源代码" → 全选复制 → 粘贴到此处"></textarea>
+    <button class="btn-secondary" onclick="parseHtml()">从 HTML 解析</button>
   </div>
 
   <div class="steps">
@@ -131,7 +132,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
     </div>
   </div>
 
-  <div class="footer">又湘�?· 文旅湖南</div>
+  <div class="footer">又湘游 · 文旅湖南</div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -166,12 +167,12 @@ function setStep(n) {
 
 async function fetchArticle() {
   const url = document.getElementById('urlInput').value.trim();
-  if (!url) { showToast('请输入文章链�?, 'error'); return; }
-  if (!url.includes('mp.weixin.qq.com')) { showToast('请输入有效的公众号文章链�?, 'error'); return; }
+  if (!url) { showToast('请输入文章链接', 'error'); return; }
+  if (!url.includes('mp.weixin.qq.com')) { showToast('请输入有效的公众号文章链接', 'error'); return; }
 
   const btn = document.getElementById('fetchBtn');
   btn.disabled = true;
-  btn.textContent = '解析�?..';
+  btn.textContent = '解析中...';
   setStatus('<span class="spinner"></span> 正在获取文章内容...', 'loading');
   document.getElementById('result').classList.remove('show');
   setStep(2);
@@ -215,11 +216,11 @@ function renderResult(d) {
   `;
 
   // Preview
-  document.getElementById('previewBody').innerHTML = d.content || '(无正文内�?';
+  document.getElementById('previewBody').innerHTML = d.content || '(无正文内容)';
   document.getElementById('previewToggle').textContent = '收起';
 
   // Word count
-  document.getElementById('wordCount').textContent = '全文�?' + d.wordCount + ' �?;
+  document.getElementById('wordCount').textContent = '全文约 ' + d.wordCount + ' 字';
 
   document.getElementById('result').classList.add('show');
 }
@@ -233,7 +234,7 @@ function toggleMode() {
     document.getElementById('modeHint').style.display = 'none';
   } else {
     manual.style.display = 'none';
-    toggle.textContent = '解析失败？试试粘�?HTML 源码';
+    toggle.textContent = '解析失败？试试粘贴 HTML 源码';
     document.getElementById('modeHint').style.display = 'block';
   }
 }
@@ -270,13 +271,13 @@ function parseHtml() {
   }
 
   if (!title && !body) {
-    setStatus('无法�?HTML 中解析出文章内容，请确认粘贴的是完整的网页源�?, 'error');
+    setStatus('无法从 HTML 中解析出文章内容，请确认粘贴的是完整的网页源码', 'error');
     return;
   }
 
   hideStatus();
   cachedData = {
-    title: title || '(无标�?',
+    title: title || '(无标题)',
     account: account || '',
     content: body || '',
     markdown: '',
@@ -290,7 +291,7 @@ function parseHtml() {
 
   // Generate markdown via backend (use same endpoint but with html flag)
   // For now, do simple client-side conversion
-  let md = `# ${title || '无标�?}\n\n`;
+  let md = `# ${title || '无标题'}\n\n`;
   let text = body
     .replace(/<h[1-4][^>]*>([\s\S]*?)<\/h[1-4]>/gi, (m, c) => `\n## ${c.replace(/<[^>]+>/g, '')}\n`)
     .replace(/<img[^>]*src\s*=\s*["']([^"']+)["'][^>]*>/gi, (m, s) => `\n![图片](${s})\n`)
@@ -325,14 +326,14 @@ function downloadMarkdown() {
   if (!cachedData) return;
   const blob = new Blob([cachedData.markdown], { type: 'text/markdown;charset=utf-8' });
   downloadBlob(blob, (cachedData.title || 'article') + '.md');
-  showToast('Markdown 已下�?, 'success');
+  showToast('Markdown 已下载', 'success');
 }
 
 function downloadHtml() {
   if (!cachedData) return;
   const blob = new Blob([cachedData.html], { type: 'text/html;charset=utf-8' });
   downloadBlob(blob, (cachedData.title || 'article') + '.html');
-  showToast('HTML 已下�?, 'success');
+  showToast('HTML 已下载', 'success');
 }
 
 function downloadBlob(blob, filename) {
@@ -349,7 +350,7 @@ async function copyMarkdown() {
   if (!cachedData) return;
   try {
     await navigator.clipboard.writeText(cachedData.markdown);
-    showToast('已复制到剪贴�?, 'success');
+    showToast('已复制到剪贴板', 'success');
   } catch {
     // fallback
     const ta = document.createElement('textarea');
@@ -358,7 +359,7 @@ async function copyMarkdown() {
     ta.select();
     document.execCommand('copy');
     document.body.removeChild(ta);
-    showToast('已复制到剪贴�?, 'success');
+    showToast('已复制到剪贴板', 'success');
   }
 }
 </script>
